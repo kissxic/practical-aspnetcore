@@ -1,4 +1,4 @@
-# MVC (8)
+# MVC (47)
 
 This section contains all micro samples for **ASP.NET Core MVC 2.1**.
 
@@ -24,11 +24,45 @@ There is no more need to include this tool in your project `<DotNetCliToolRefere
 
   Use `Microsoft.AspNetCore.Mvc.ProblemDetails` as part of your Web API error reply. It is implementing [RFC  7807](https://tools.ietf.org/html/rfc7807). It will make life easier for everybody.
 
+* [Extends Microsoft.AspNetCore.Mvc.ProblemDetails](/projects/mvc/api-problem-details-2)
+
+  Extend `Microsoft.AspNetCore.Mvc.ProblemDetails` to make it easier for day to day use. It will adjust what kind of information it shows based on your development environment.
+
+## Model Binding
+  
+  We are exploring everything related to model binding in this section.
+
+  * [Model binding using a class and FromQuery attribute](/projects/mvc/model-binding-from-query)
+
+    Use `[FromQuery]` attribute to have MVC put all the query string values nicely in a class instead of using primitives e.g. `int userId`.
+
+  * [Model binding using a class and FromRoute attribute](/projects/mvc/model-binding-from-route)
+
+    Use `[FromRoute]` attribute to have MVC put all the route values nicely in a class instead of using primitives e.g. `int userId`.
+
+
+## Action Results
+  
+  We are exploring various  that an Action returns.
+
+  * [FileStreamResult](/projects/mvc/result-filestream)
+
+    An example on how to return a file to the browser when you have a stream available.  
+
+  * [PhysicalFileResult](/projects/mvc/result-physicalfile)
+
+    An example on how to return a file to the browser when you have a path to a file on disk.
+ 
+
 ## Formatters
 
 * [Using Utf8Json as JSON Formatter](/projects/mvc/utf8json-formatter)
 
-  Use the super fast [Ut8Json](https://github.com/neuecc/Utf8Json) JSON serialization library instead of the default one. This project requires `utf8json` and `Utf8Json.AspNetCoreMvcFormatter` packages. 
+  Use the super fast [Ut8Json](https://github.com/neuecc/Utf8Json) JSON serialization library instead of the default one. This project requires `utf8json` and `Utf8Json.AspNetCoreMvcFormatter` packages.
+
+* [Returning XML Response](/projects/mvc/mvc-output-xml)
+
+  Return XML response using `Microsoft.AspNetCore.Mvc.Formatters.Xml`. 
 
 ## Swagger (API Documentation)
 
@@ -48,16 +82,38 @@ There is no more need to include this tool in your project `<DotNetCliToolRefere
 
   We also use the new `ActionResult<T>` return type. You can read more about the type [here](https://joonasw.net/view/aspnet-core-2-1-actionresult-of-t).
 
-## Tag Helpers
+* [Customizing NSwag](/projects/mvc/nswag-2)
 
-  * [Tag Helper - Hello World](/projects/mvc/tag-helper)
+  Use attribute such as `SwaggerTag` to organize your API or `SwaggerIgnore` to hide an API from the definition (using `[ApiExplorerSettings(IgnoreApi = true)]` also works).
 
-    This is the simplest tag helper you can do. It just prints 'hello world'.
+## Razor Class Library (3)
 
-  * [Tag Helper - Alert Tag Helper](/projects/mvc/tag-helper-2)
+  We are exploring Razor Class Library (RCL) functionalities in this section. RCL allows you to create reusable UI libraries.
 
-    Convert a message to become an alert message (bootstrap 4).
+  * [Razor Class Library - Hello World](/projects/mvc/razor-class-library)
 
-  * [Tag Helper - Alert Tag Helper With Style](/projects/mvc/tag-helper-3)
+    This is the simplest example to demonstrate the functionality of RCL. The library uses Razor Pages. Go to `src/WebApplication` folder and run `dotnet watch run` to run the sample.
 
-    Convert a message to become an alert message with 4 style of alerts (bootstrap 4).
+    Thanks to [@AdrienTorris](https://twitter.com/AdrienTorris).
+ 
+  * [Razor Class Library - Include static files](/projects/mvc/razor-class-library-with-static-files)
+
+    This is similar to previous example except now you can including static files (javascript, images, css, etc) with your RCL. Go to `src/WebApplication` folder and run `dotnet watch run` to run the sample.
+    
+    Thanks to [@AdrienTorris](https://twitter.com/AdrienTorris).
+
+  * [Razor Class Library - using Controllers and Views](/projects/mvc/razor-class-library-with-controllers)
+
+    This sample demonstrates on how to use Controllers and Views in your Razor Class Library in contrast to previous examples that uses Razor Pages.
+
+    
+    Thanks to [@AdrienTorris](https://twitter.com/AdrienTorris).
+
+## Syndication Output Formatter (1)
+
+  We are building a RSS/ATOM Output formatter starting from the very basic.
+
+  * [Output Formatter Syndication](/projects/mvc/output-formatter-syndication)
+
+    This is a very rudimentary RSS output formatter. It's valid but it does not do much other than providing RSS items.
+  

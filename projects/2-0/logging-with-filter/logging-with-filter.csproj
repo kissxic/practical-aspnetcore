@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>logging-with-filter</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>logging-with-filter</PackageId>
+  </PropertyGroup>
+
+
+</Project>

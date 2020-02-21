@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>PracticalAspNetCore</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>tag-helper</PackageId>
+  </PropertyGroup>
+
+
+</Project>
