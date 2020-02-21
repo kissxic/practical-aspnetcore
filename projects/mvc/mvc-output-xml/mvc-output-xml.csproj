@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>mvc-output-xml</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>mvc-output-xml</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.*" />
+  </ItemGroup>
+</Project>
+

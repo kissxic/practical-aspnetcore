@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DiagnosticAdapter;
+using Microsoft.AspNetCore;
 
 namespace StartupBasic
 {
@@ -70,16 +71,17 @@ namespace StartupBasic
                     ");
                 });
             }
-       }
+        }
+
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-              .UseKestrel()
-              .UseStartup<Startup>()
-              .Build();
-
-            host.Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
+
+        static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseEnvironment("Development");
 
         public class SimpleDiagnosticListener
         {
@@ -88,9 +90,9 @@ namespace StartupBasic
             //- Microsoft.AspNetCore.MiddlewareAnalysis.MiddlewareException
             //- Microsoft.AspNetCore.MiddlewareAnalysis.MiddlewareFinished
             //If you mispelled them, it won't work.
-            //Read more about them here https://github.com/aspnet/Diagnostics/blob/dev/src/Microsoft.AspNetCore.MiddlewareAnalysis/AnalysisMiddleware.cs
+            //Read more about them here https://github.com/aspnet/AspNetCore/blob/master/src/Middleware/MiddlewareAnalysis/src/AnalysisMiddleware.cs
 
-            //The parameters in all these three methods are ALL the information provided by the MiddlewareAnalysis for each specifici event
+            //The parameters in all these three methods are ALL the information provided by the MiddlewareAnalysis for each specificic event
             [DiagnosticName("Microsoft.AspNetCore.MiddlewareAnalysis.MiddlewareStarting")]
             public void OnStarting(HttpContext httpContext, string name, Guid instanceId, long timestamp)
             {

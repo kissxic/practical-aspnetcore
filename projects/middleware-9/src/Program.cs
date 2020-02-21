@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore;
 
 namespace HelloWorldWithMiddleware
 {
@@ -11,11 +12,17 @@ namespace HelloWorldWithMiddleware
         public string Greet() => "Good morning";
     }
 
+    public class Goodbye
+    {
+        public string Say() => "Goodbye";
+    }
+
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<Greeting>();
+            services.AddSingleton<Goodbye>();
         }
         
         public void Configure(IApplicationBuilder app)
@@ -33,9 +40,9 @@ namespace HelloWorldWithMiddleware
             _greet = greet;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, Goodbye goodbye)
         {
-            await context.Response.WriteAsync($"{_greet.Greet()}");
+            await context.Response.WriteAsync($"{_greet.Greet()} {goodbye.Say()}");
         }
     }
 
@@ -43,12 +50,12 @@ namespace HelloWorldWithMiddleware
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-              .UseKestrel()
-              .UseStartup<Startup>()
-              .Build();
-
-            host.Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseEnvironment("Development");
     }
 }

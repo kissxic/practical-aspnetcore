@@ -1,5 +1,6 @@
 [Oo]bj/
 [Bb]in/
+node_modules/
 
 project.lock.json
 
@@ -7,4 +8,7 @@ project.lock.json
 *.suo
 *.cache
 *.docstates
+*.db
 
+.vs/
+Properties/

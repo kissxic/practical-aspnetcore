@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using Microsoft.AspNetCore;
 
-namespace Routing5 
+namespace Routing5
 {
     public class Startup
     {
@@ -16,7 +17,7 @@ namespace Routing5
 
         public void Configure(IApplicationBuilder app, IInlineConstraintResolver resolver)
         {
-         var defaultHandler = new RouteHandler (context =>
+            var defaultHandler = new RouteHandler(context =>
             {
                 var routeValues = context.GetRouteData().Values;
                 return context.Response.WriteAsync($"Route values: {string.Join(", ", routeValues)}");
@@ -24,14 +25,15 @@ namespace Routing5
 
             var routes = new RouteBuilder(app, defaultHandler);
 
-            routes.MapGet("hello", (IApplicationBuilder app2) =>{
+            routes.MapMiddlewareGet("hello", (IApplicationBuilder app2) =>
+            {
                 var routes2 = new RouteBuilder(app2);
                 routes2.MapGet("world", (context) => context.Response.WriteAsync("Hello World"));
                 app2.UseRouter(routes2.Build());
             });
 
             routes.MapRoute(
-                name: "Default", 
+                name: "Default",
                 template: "{*path}"
             );
 
@@ -39,17 +41,17 @@ namespace Routing5
             app.UseRouter(routing);
         }
     }
-    
-   public class Program
+
+    public class Program
     {
         public static void Main(string[] args)
         {
-              var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseEnvironment("Development");
     }
 }
